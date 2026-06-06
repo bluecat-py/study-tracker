@@ -1,0 +1,61 @@
+from stats import create_sub, isNumber
+print("=================Study Tracker by bluecat-py=================")
+
+def main():
+    #declaring important variable
+    report = []
+    while True:
+
+        #ask user the action to perform
+        print("1. Log study\n2. View report\n3. EXIT")
+        action = input("Choose which action you would like to perform(1-3)\n")
+
+        #responses to the input
+        if action == "1": 
+            if len(report) == 0: #if no subject has been added yet
+                sub_input = input("It seems that you haven't added any subject, go ahead and add one.\nSubject: ")
+                minute = int(input("Enter study time (minutes): "))
+                report.append(create_sub(sub_input, minute))
+                print("Your study has been recorded...")
+            else: #if the subject already exist
+                for i in range(0, len(report)):
+                    print(f"{i+1}. {report[i]["subject"]}")
+                sub_input = input("Choose which subject to record or create a new one")
+                if isNumber(sub_input): #scenario 1: user entered number(s)
+                    sub_input = int(sub_input) #convert it into integer for comparing
+                    if sub_input > len(report) or sub_input == 0: #if the input is invalid
+                        print("No subject matches that number. Enter a valid subject number or type a new subject name to create it.")
+                        continue #the code below won't run if the expression is True
+                    minute = int(input("Enter study time (minutes): "))
+                    report[sub_input-1]["minute"].append(minute)
+                    print("Your study has been recorded...")
+                elif not isNumber(sub_input): #scenario 2: user entered alphabet
+                    found = False
+                    for i in range(0, len(report)):
+                        if sub_input == report[i]["subject"]: #if the input match with the value in "subject" on i index
+                            found = True
+                            minute = int(input("Enter study time (minutes): "))
+                            report[i]["minute"].append(minute)
+                            break
+                    if found == False: #if no match is found
+                        print(f"Subject {sub_input} has been created")
+                        minute = int(input("Enter study time (minutes): "))
+                        report.append(create_sub(sub_input, minute))
+                        print("Your study has been recorded...")
+
+
+
+
+        elif action == "2":
+            print(report)
+
+
+        elif action == "3":
+            break
+
+
+
+
+
+            
+main()
