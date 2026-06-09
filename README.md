@@ -1,54 +1,154 @@
 # Study Tracker
 
-A simple Python command-line tool to log your study sessions across different subjects. I built it to log my studies without having to pay any subscription just to get the simple features.
+A command-line study tracking application written in Python.
 
----
+This project is an expansion of the original Study Tracker beta version. While the beta focused on recording study sessions, this version introduces report generation, statistical summaries, and a clearer separation between data processing and presentation.
 
-## 🧠 What I Learned
+The goal of the project was to gain more experience designing programs that work with structured data and transforming raw information into meaningful reports.
 
-Building this helped me move past simple scripts and practice cleaner, more logical coding:
+## Features
 
-* **Handling Data Structures:** Learned how to use a list of dictionaries to easily append new study sessions to specific subjects.
-* **Smart Input Loops:** Figured out how to handle both numbers (selecting an existing subject index) and text (typing a name to find or create a subject) in the same prompt.
-* **Modular Code:** Split the main app loop (`main.py`) from the helper functions (`stats.py`) to keep things organized instead of dumping everything into one giant file.
+* Create study subjects
+* Record study sessions
+* Add multiple study sessions to existing subjects
+* Automatically create new subjects when needed
+* View an overall study report
+* Calculate total subjects tracked
+* Calculate total study sessions
+* Calculate total study time
+* Generate subject-specific statistics
+* Calculate average session duration
+* Display formatted study logs
+* Separate calculation and presentation logic into dedicated functions
 
----
+## Example Output
 
-## 🕹️ How to Use
+```text
+================ STUDY REPORT ================
 
-1. **Run the script:**
-   ```bash
-   python main.py
+Subjects: 2
+Total Sessions: 9
+Total Study Time: 5h 22m
 
+Math
+==================================================
+Sessions: 5
+Total Time Spent: 2h 30m
+Average Session: 30.0
 
-2. **Interact with the menu options:**
-* **1. Log study:** If the tracker is empty, type a name to create your first subject. Once you have subjects saved, you can type their number to select them, or type a brand-new name to create a new one on the fly.
-   * **2. View report:** See the data collected so far.
-   * **3. EXIT:** Close the tracker.
+Session 1: 30
+Session 2: 60
+Session 3: 12
 
----
+Biology
+==================================================
+Sessions: 4
+Total Time Spent: 2h 52m
+Average Session: 43.0
+```
 
-## 💻 How It Works
+## Why Some Functionality Was Implemented Manually
 
-The script runs a continuous loop and processes input based on what you type:
+Several parts of this project intentionally avoid Python built-in shortcuts.
 
-* **First-time Run:** If no subjects exist yet, it automatically prompts you to create one so the script has data to work with.
-* **Smart Choices:** When you log time, the app checks if you entered a number or text:
-    * **If it's a number:** It checks if the number matches a subject on the list and logs your minutes there.
-    * **If it's text:** It searches your existing subjects. If it finds a match, it adds the minutes; if it's a new name, it creates a new subject automatically.
+Examples include:
 
----
+* Manual number validation instead of `str.isdigit()`
+* Manual time formatting logic instead of relying on more concise alternatives
 
-## 🛠️ Current Status (Beta)
+This was done as a learning exercise. The objective was to understand the underlying logic before using higher-level abstractions. Although Python provides simpler solutions, implementing them manually provided additional practice with loops, conditionals, and data manipulation.
 
-> ⚠️ **Note:** The core logic for tracking and saving your minutes works great. However, the "View report" option currently just prints out the raw, ugly list/dictionary format. Cleaning this up into a nice summary dashboard is the main focus for the next update.
+## Project Structure
 
----
+### main.py
 
-## 🗂️ Files
+Responsible for:
 
-* `main.py` – Handles the main menu loop and user inputs.
-* `stats.py` – Houses the helper functions (`create_sub`, `isNumber`) to keep the main code clean.
-* `visual.md` – *(Optional)* Not needed to run the code. Just a personal blueprint I use to reference how I want the final layout to look and behave.
+* User interaction
+* Menu navigation
+* Subject management
+* Recording study sessions
 
----
+### stats.py
+
+Responsible for:
+
+* Report calculations
+* Subject statistics
+* Time formatting
+* Utility functions
+
+## Data Structure
+
+Study data is stored using a list of dictionaries.
+
+```python
+[
+    {
+        "subject": "math",
+        "minutes": [30, 60, 12]
+    },
+    {
+        "subject": "biology",
+        "minutes": [44, 22, 30]
+    }
+]
+```
+
+## Improvements Over the Beta Version
+
+### Reporting System
+
+The beta version only stored and displayed raw data.
+
+This version introduces:
+
+* Overall study statistics
+* Subject-specific statistics
+* Total study time calculations
+* Average session calculations
+* Formatted reports
+
+### Better Separation of Responsibilities
+
+The program now distinguishes between:
+
+* Data storage
+* Data processing
+* Data presentation
+
+This made the code easier to organize and extend.
+
+### Refactoring and Naming
+
+Several parts of the codebase were renamed and reorganized to improve readability and consistency.
+
+Examples include:
+
+* `create_sub()` → `create_subject()`
+* `minute` → `minutes`
+* More descriptive function names throughout the project
+
+## What I Learned
+
+Through this project, I gained experience with:
+
+* Calculating aggregate statistics from nested data structures
+* Transforming raw data into human-readable reports
+* Designing functions around specific responsibilities
+* Refactoring code as new requirements emerged
+* Thinking more carefully about data modeling and program structure
+* Identifying and reducing duplication in code
+* Debugging programs that operate across multiple modules
+
+One of the most important lessons from this project was realizing that the choice of data structure can significantly affect how easy or difficult the rest of the program becomes to implement.
+
+## Possible Future Improvements
+
+* Recording dates for study sessions
+* Input validation and error handling for study duration
+* Improved terminal formatting and user interface
+
+## Purpose
+
+This project was built as a personal learning project before starting college. It represents my progression from creating simple command-line utilities toward designing programs that store, process, and present information in a structured way.
