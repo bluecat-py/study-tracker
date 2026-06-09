@@ -73,6 +73,6 @@ def show_study_log(report):
         print(f"Sessions: {calculate_subject_report(report)[i]["total sessions"]}")
         print(f"Total Time Spent: {calculate_subject_report(report)[i]["total time spent"]}")
         print(f"Average Session:  {calculate_subject_report(report)[i]["average session"]}")
-        for minute in report[i]["minutes"]:
-            print(f"Session {i+1}: {minute}")
+        for minute in range(0, len(report[i]["minutes"])):
+            print(f"Session {minute+1}: {report[i]["minutes"][minute]}")
 
