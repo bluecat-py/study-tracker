@@ -61,7 +61,7 @@ def calculate_subject_report(report):
 #presentation
 
 def show_study_report(report):
-    print("================ STUDY REPORT ================\n")
+    print("================== STUDY REPORT ==================\n")
     print(f"Subjects: {calculate_study_report(report)[0]}")
     print(f"Total Sessions: {calculate_study_report(report)[1]}")
     print(f"Total Study Time: {calculate_study_report(report)[2]}")
@@ -74,5 +74,8 @@ def show_study_log(report):
         print(f"Total Time Spent: {calculate_subject_report(report)[i]["total time spent"]}")
         print(f"Average Session:  {calculate_subject_report(report)[i]["average session"]}")
         for minute in range(0, len(report[i]["minutes"])):
-            print(f"Session {minute+1}: {report[i]["minutes"][minute]}")
+            print(f"Session {minute+1}: {report[i]["minutes"][minute]}\n")
+
+
+
 

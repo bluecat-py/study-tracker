@@ -13,14 +13,15 @@ def main():
         #responses to the input
         if action == "1": 
             if len(report) == 0: #if no subject has been added yet
-                sub_input = input("It seems that you haven't added any subject, go ahead and add one.\nSubject: ")
-                minute = int(input("Enter study time (minutes): ")) #to do: make this a function
+                sub_input = input("\nIt seems that you haven't added any subject, go ahead and add one.\nSubject: ")
+                minute = int(input("Enter study time (minutes): ")) #TODO: make this a function
                 report.append(create_subject(sub_input, minute))
-                print("Your study has been recorded...")
+                print("\nYour study has been recorded...")
+                print("=====================================")
             else: #if the subject already exist
                 for i in range(0, len(report)):
                     print(f"{i+1}. {report[i]["subject"]}")
-                sub_input = input("Choose which subject to record or create a new one\n")
+                sub_input = input("\nChoose which subject to record or create a new one\n")
                 if isNumber(sub_input): #scenario 1: user entered number
                     sub_input = int(sub_input) #convert it into integer for comparing
                     if sub_input > len(report) or sub_input == 0: #if the input is invalid
@@ -28,7 +29,8 @@ def main():
                         continue #the code below won't run if the expression is True
                     minute = int(input("Enter study time (minutes): "))
                     report[sub_input-1]["minutes"].append(minute)
-                    print("Your study has been recorded...")
+                    print("\nYour study has been recorded...")
+                    print("=====================================")
                 elif not isNumber(sub_input): #scenario 2: user entered alphabet
                     found = False
                     for i in range(0, len(report)):
@@ -41,7 +43,8 @@ def main():
                         print(f"Subject {sub_input} has been created")
                         minute = int(input("Enter study time (minutes): "))
                         report.append(create_subject(sub_input, minute))
-                        print("Your study has been recorded...")
+                        print("\nYour study has been recorded...")
+                        print("=====================================")
 
 
 
@@ -59,5 +62,7 @@ def main():
 
 main()
 
-#to do: handle invalid input in variable minute
-#to do: simplify average session from this Average Session:  36.333333333333336 to Average Session:  36.33
+#TODO: handle invalid input in variable minute
+#TODO: simplify average session from this Average Session:  36.333333333333336 to Average Session:  36.33
+#TODO: handle an error for when user input only digits(no alphabet) in subject input
+#TODO: handle an empty input
