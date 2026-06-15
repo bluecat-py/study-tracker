@@ -1,9 +1,10 @@
 from stats import *
+from storage import *
 print("=================Study Tracker by bluecat-py=================")
 
 def main():
     #declaring important variable
-    report = []
+    report = load_report()
     while True:
 
         #ask user the action to perform
@@ -55,6 +56,7 @@ def main():
 
 
         elif action == "3":
+            save_report(report)
             break
 
         else:
@@ -66,3 +68,4 @@ main()
 #TODO: simplify average session from this Average Session:  36.333333333333336 to Average Session:  36.33
 #TODO: handle an error for when user input only digits(no alphabet) in subject input
 #TODO: handle an empty input
+#TODO: add remove subject
