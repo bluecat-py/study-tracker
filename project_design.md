@@ -43,10 +43,10 @@ Study Log
 report = [
     {
         "subject" : "math",
-        "minute" : [30, 12, 33, 44, 31]
+        "minutes" : [30, 12, 33, 44, 31]
     },
     {
         "subject" : "biology",
-        "minute" : [44, 73, 12, 43]
+        "minutes" : [44, 73, 12, 43]
     }
 ]
