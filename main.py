@@ -3,23 +3,16 @@ from storage import *
 print("=================Study Tracker by bluecat-py=================")
 
 def main():
-    #declaring important variable
     report = load_report()
     while True:
-
-        #ask user the action to perform
-        print("1. Log study\n2. View report\n3. EXIT")
+        print("1. Log study\n2. View report\n3. RESET\n4. EXIT")
         action = input("Choose which action you would like to perform(1-3)\n")
 
         #responses to the input
         if action == "1": 
-            if len(report) == 0: #if no subject has been added yet
-                sub_input = input("\nIt seems that you haven't added any subject, go ahead and add one.\nSubject: ")
-                minute = int(input("Enter study time (minutes): ")) #TODO: make this a function
-                report.append(create_subject(sub_input, minute))
-                print("\nYour study has been recorded...")
-                print("=====================================")
-            else: #if the subject already exist
+            if has_no_subject(report):
+                handle_empty_subject(report)
+            else: < #if the subject already exist
                 for i in range(0, len(report)):
                     print(f"{i+1}. {report[i]["subject"]}")
                 sub_input = input("\nChoose which subject to record or create a new one\n")
@@ -54,8 +47,11 @@ def main():
             show_study_report(report)
             show_study_log(report)
 
-
         elif action == "3":
+            reset_report(report)
+
+
+        elif action == "4":
             save_report(report)
             break
 

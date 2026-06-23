@@ -15,3 +15,8 @@ def save_report(report):
     with open(FILENAME, "w") as file:
         json.dump(report, file, indent=4)
 
+def reset_report(report):
+    with open(FILENAME, "w") as file:
+        json.dump([], file, indent=4)
+    report.clear()
+    print("All has been resetted..")
