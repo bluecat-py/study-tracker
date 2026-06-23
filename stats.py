@@ -1,3 +1,4 @@
+#inputting
 def format_time(total_minute: int): 
     hour_digits = []
     hours_as_strings = str(total_minute / 60) #so I can iterate it
@@ -26,8 +27,37 @@ def isNumber(value: str) -> bool:
     else:
         return False
 
-#calculation
+#input logic
+def input_minute():
+    while True:
+        try:
+            minute = int(input("Enter study time (minutes): "))
+            break
+        except ValueError:
+            print("Please enter minutes in digit numbers.\n")
+    return minute
 
+def has_no_subject(report):
+    if len(report) == 0:
+        return True
+    else:
+        return False
+
+def handle_empty_subject(report):
+    while True:
+        sub_input = input("\nIt seems that you haven't added any subject, go ahead and add one.\nSubject: ")
+        if sub_input == "": #suppose user typed nothing
+            sub_input = input("You haven't input anything, try again.\nSubject: ")
+        else:
+            minute = input_minute()
+            break
+    report.append(create_subject(sub_input, minute))
+    print("\nYour study has been recorded...")
+    print("=====================================")
+
+
+
+#calculation
 def calculate_study_report(report: list[dict]) -> list[int, int, str]:
     total_subjects = len(report)
     total_sessions = 0
@@ -64,9 +94,9 @@ def show_study_report(report):
     print("================== STUDY REPORT ==================\n")
     print(f"Subjects: {calculate_study_report(report)[0]}")
     print(f"Total Sessions: {calculate_study_report(report)[1]}")
-    print(f"Total Study Time: {calculate_study_report(report)[2]}")
+    print(f"Total Study Time: {calculate_study_report(report)[2]}\n")
 
-def show_study_log(report):
+def show_study_log(report): 
     for i in range(0, len(report)):
         print("\n"+report[i]["subject"].capitalize())
         print("==================================================")
@@ -74,8 +104,6 @@ def show_study_log(report):
         print(f"Total Time Spent: {calculate_subject_report(report)[i]["total time spent"]}")
         print(f"Average Session:  {calculate_subject_report(report)[i]["average session"]}")
         for minute in range(0, len(report[i]["minutes"])):
-            print(f"Session {minute+1}: {report[i]["minutes"][minute]}\n")
-
-
-
+            print(f"Session {minute+1}: {report[i]["minutes"][minute]}")
+        print("==================================================\n")
 
