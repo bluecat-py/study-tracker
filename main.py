@@ -12,7 +12,7 @@ def main():
         if action == "1": 
             if has_no_subject(report):
                 handle_empty_subject(report)
-            else: < #if the subject already exist
+            else: #if the subject already exist
                 for i in range(0, len(report)):
                     print(f"{i+1}. {report[i]["subject"]}")
                 sub_input = input("\nChoose which subject to record or create a new one\n")
