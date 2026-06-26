@@ -10,12 +10,12 @@ def main():
 
         #responses to the input
         if action == "1": 
-            if has_no_subject(report):
+            if has_subject(report) == False:
                 handle_empty_subject(report)
-            else: #if the subject already exist
-                for i in range(0, len(report)):
-                    print(f"{i+1}. {report[i]["subject"]}")
-                sub_input = input("\nChoose which subject to record or create a new one\n")
+
+            elif has_subject(report): #if the subject already exist
+                show_subjects(report)
+                subject_input = input("\nChoose which subject to record or create a new one\n")
                 if isNumber(sub_input): #scenario 1: user entered number
                     sub_input = int(sub_input) #convert it into integer for comparing
                     if sub_input > len(report) or sub_input == 0: #if the input is invalid

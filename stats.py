@@ -1,5 +1,5 @@
-#inputting
-def format_time(total_minute: int): 
+#input
+def format_time(total_minute): 
     hour_digits = []
     hours_as_strings = str(total_minute / 60) #so I can iterate it
     for num in hours_as_strings:
@@ -27,6 +27,8 @@ def isNumber(value: str) -> bool:
     else:
         return False
 
+
+
 #input logic
 def input_minute():
     while True:
@@ -37,24 +39,66 @@ def input_minute():
             print("Please enter minutes in digit numbers.\n")
     return minute
 
-def has_no_subject(report):
-    if len(report) == 0:
+def has_subject(report):
+    if len(report) > 0:
         return True
     else:
         return False
 
-def handle_empty_subject(report):
+def record_new_subject(report: list[dict], subject_input: str):
     while True:
-        sub_input = input("\nIt seems that you haven't added any subject, go ahead and add one.\nSubject: ")
-        if sub_input == "": #suppose user typed nothing
-            sub_input = input("You haven't input anything, try again.\nSubject: ")
+        if subject_input == "": #suppose user typed nothing
+            subject_input = input("You haven't input anything, try again.\nSubject: ")
         else:
             minute = input_minute()
             break
-    report.append(create_subject(sub_input, minute))
+    report.append(create_subject(subject_input, minute))
     print("\nYour study has been recorded...")
     print("=====================================")
 
+def record_subject(report, subject_input):
+    if isNumber(subject_input):
+        subject_input = int(subject_input)
+        minute = input_minute()
+        report[subject_input - 1]["minute"].append(minute)
+    else:
+        minute = input_minute()
+        report[subject_exist(report, subject_input)[1]]["minute"].append(minute)
+        
+
+def subject_exist(report, subject_input):
+    subject = None
+    found = False
+    if isNumber(subject_input):
+        subject_input = int(subject_input)
+        if subject_input > len(report) or subject_input == 0:
+            found = False
+        else:
+            found = True
+    elif isNumber(subject_input) == False:
+        for i in range(0, len(report)):
+            if subject_input in report[i]["subject"]:
+                found = True
+                subject = i
+                break
+    return found, subject
+
+
+def handle_empty_subject(report):
+    subject_input = input("\nIt seems that you haven't added any subject, go ahead and add one.\nSubject: ")
+    record_new_subject(report, subject_input)
+
+def show_subjects(report):
+    for i in range(0, len(report)):
+        print(f"{i+1}. {report[i]["subject"]}")
+    
+def handle_subject_input(report, subject_input):
+    while True:
+        if subject_exist(report, subject_input)[0] == False:
+            print("No subject matches that number. Enter a valid subject number or type a new subject name to create it.")
+        else:
+            record_subject(report, subject_input)
+            break
 
 
 #calculation
@@ -88,8 +132,8 @@ def calculate_subject_report(report):
         )
     return study_log_report
 
-#presentation
 
+#presentation
 def show_study_report(report):
     print("================== STUDY REPORT ==================\n")
     print(f"Subjects: {calculate_study_report(report)[0]}")
@@ -106,4 +150,3 @@ def show_study_log(report):
         for minute in range(0, len(report[i]["minutes"])):
             print(f"Session {minute+1}: {report[i]["minutes"][minute]}")
         print("==================================================\n")
-
