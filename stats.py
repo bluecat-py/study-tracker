@@ -1,4 +1,4 @@
-#input
+#formatting
 def format_time(total_minute): 
     hour_digits = []
     hours_as_strings = str(total_minute / 60) #so I can iterate it
@@ -27,9 +27,24 @@ def isNumber(value: str) -> bool:
     else:
         return False
 
-
+def isOnlyNumber(value: str) -> bool:
+    NumCount = 0
+    for char in value:
+        if isNumber(char): #PROBLEM: This line is trying to iterate an iteration
+            NumCount += 1
+    if NumCount == len(value):
+        return True
+    else:
+        return False
 
 #input logic
+def input_subject():
+    try:
+        subject_input = input("\nChoose which subject to record or create a new one\n")
+    except isOnlyNumber(subject_input):
+        raise ValueError("A subject cannot be only digit numbers")
+
+
 def input_minute():
     while True:
         try:
@@ -45,10 +60,10 @@ def has_subject(report):
     else:
         return False
 
-def record_new_subject(report: list[dict], subject_input: str):
+def record_new_subject(report: list[dict], subject_input: str): #TODO: it seems that the program will be in an infinite loop if the user chose a subject which name is in digit
     while True:
         if subject_input == "": #suppose user typed nothing
-            subject_input = input("You haven't input anything, try again.\nSubject: ")
+            subject_input = input("You haven't typed anything, try again.\nSubject: ")
         else:
             minute = input_minute()
             break
@@ -60,13 +75,13 @@ def record_subject(report, subject_input):
     if isNumber(subject_input):
         subject_input = int(subject_input)
         minute = input_minute()
-        report[subject_input - 1]["minute"].append(minute)
+        report[subject_input - 1]["minutes"].append(minute)
     else:
         minute = input_minute()
-        report[subject_exist(report, subject_input)[1]]["minute"].append(minute)
+        report[subject_exist(report, subject_input)[1]]["minutes"].append(minute)
         
 
-def subject_exist(report, subject_input):
+def subject_exist(report, subject_input):  #TODO: it seems that the program will be in an infinite loop if the user chose a subject which name is in digit
     subject = None
     found = False
     if isNumber(subject_input):
@@ -96,8 +111,11 @@ def handle_subject_input(report, subject_input):
     while True:
         if subject_exist(report, subject_input)[0] == False:
             print("No subject matches that number. Enter a valid subject number or type a new subject name to create it.")
+        elif subject_exist(report, subject_input)[0] == True:
+            record_subject(report,subject_input)
+            break
         else:
-            record_subject(report, subject_input)
+            record_new_subject(report, subject_input)
             break
 
 

@@ -15,32 +15,7 @@ def main():
 
             elif has_subject(report): #if the subject already exist
                 show_subjects(report)
-                subject_input = input("\nChoose which subject to record or create a new one\n")
-                if isNumber(sub_input): #scenario 1: user entered number
-                    sub_input = int(sub_input) #convert it into integer for comparing
-                    if sub_input > len(report) or sub_input == 0: #if the input is invalid
-                        print("No subject matches that number. Enter a valid subject number or type a new subject name to create it.")
-                        continue #the code below won't run if the expression is True
-                    minute = int(input("Enter study time (minutes): "))
-                    report[sub_input-1]["minutes"].append(minute)
-                    print("\nYour study has been recorded...")
-                    print("=====================================")
-                elif not isNumber(sub_input): #scenario 2: user entered alphabet
-                    found = False
-                    for i in range(0, len(report)):
-                        if sub_input == report[i]["subject"]: #if the input match with the value in "subject" on i index
-                            found = True
-                            minute = int(input("Enter study time (minutes): "))
-                            report[i]["minutes"].append(minute)
-                            break
-                    if found == False: #if no match is found
-                        print(f"Subject {sub_input} has been created")
-                        minute = int(input("Enter study time (minutes): "))
-                        report.append(create_subject(sub_input, minute))
-                        print("\nYour study has been recorded...")
-                        print("=====================================")
-
-
+                handle_subject_input(report, input_subject())
 
 
         elif action == "2":
@@ -65,3 +40,6 @@ main()
 #TODO: handle an error for when user input only digits(no alphabet) in subject input
 #TODO: handle an empty input
 #TODO: add remove subject
+#PROBLEM: it seems that the program will be in an infinite loop if the user chose a subject which name is in digit
+#SOLUTION: I need to format the user's input
+#TODO: tell user that the log will only be saved after Exitting the program
