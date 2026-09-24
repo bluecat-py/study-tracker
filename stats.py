@@ -12,6 +12,8 @@ def format_time(total_minute: int):
     return hour + " " + minute
         
 def create_subject(subject: str, minutes: list[int]):
+    if minutes == 0:
+        minutes = []
     report = {"subject" : subject,
               "minutes" : [minutes]}
     return report
@@ -76,7 +78,7 @@ def calculate_subject_report(report):
         for minute in report[i]["minutes"]:
             total_time_spent += minute
         total_sessions = len(report[i]["minutes"])
-        average_session = total_time_spent / total_sessions
+        average_session = round(total_time_spent / total_sessions, 2)
         subject = report[i]["subject"]
         study_log_report.append(
             {
@@ -101,9 +103,18 @@ def show_study_log(report):
         print("\n"+report[i]["subject"].capitalize())
         print("==================================================")
         print(f"Sessions: {calculate_subject_report(report)[i]["total sessions"]}")
-        print(f"Total Time Spent: {calculate_subject_report(report)[i]["total time spent"]}")
-        print(f"Average Session:  {calculate_subject_report(report)[i]["average session"]}")
+        print(f"Total Time Spent: {format_time(calculate_subject_report(report)[i]["total time spent"])}")
+        print(f"Average Session: {calculate_subject_report(report)[i]["average session"]}")
         for minute in range(0, len(report[i]["minutes"])):
-            print(f"Session {minute+1}: {report[i]["minutes"][minute]}")
+            print(f"Session {minute+1}: {format_time(report[i]["minutes"][minute])}")
         print("==================================================\n")
+
+
+
+
+#removing
+def delete(subject):
+    while True:
+        if subject in report:
+            HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 

@@ -5,8 +5,8 @@ print("=================Study Tracker by bluecat-py=================")
 def main():
     report = load_report()
     while True:
-        print("1. Log study\n2. View report\n3. RESET\n4. EXIT")
-        action = input("Choose which action you would like to perform(1-3)\n")
+        print("1. Log study\n2. View report\n3. Delete subject\n4. RESET\n5. EXIT")
+        action = input("Choose which action you would like to perform(1-5)\n")
 
         #responses to the input
         if action == "1": 
@@ -47,21 +47,22 @@ def main():
             show_study_report(report)
             show_study_log(report)
 
-        elif action == "3":
+        elif action == "4":
             reset_report(report)
 
 
-        elif action == "4":
+        elif action == "5":
             save_report(report)
             break
 
         else:
-            print("\nError: Choose the availabe action (1-3)\n")
+            print("\nError: Choose the availabe action (1-5)\n")
 
 main()
 
-#TODO: handle invalid input in variable minute
+#TODO: handle invalid input in variable minute, when the user want to make the second entry but they inputted an invalid value
 #TODO: simplify average session from this Average Session:  36.333333333333336 to Average Session:  36.33
 #TODO: handle an error for when user input only digits(no alphabet) in subject input
 #TODO: handle an empty input
 #TODO: add remove subject
+#TODO: a user cannot just input "1" for their subject name, because that would be confusing
