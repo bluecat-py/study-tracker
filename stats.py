@@ -9,7 +9,10 @@ def format_time(total_minute: int):
             hour_digits.append(num) #or I can just use //
     hour = str(".".join(hour_digits)) + "h"
     minute = str(total_minute % 60) +"m"
-    return hour + " " + minute
+    if hour == "0h":       #so that it doesn't show the hour if it's just 0
+        return minute
+    else:
+        return hour + " " + minute
         
 def create_subject(subject: str, minutes: list[int]):
     if minutes == 0:
