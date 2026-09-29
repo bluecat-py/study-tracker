@@ -47,6 +47,10 @@ def main():
             show_study_report(report)
             show_study_log(report)
 
+        elif action == "3":
+            delete(report, input("What subject would you like to delete?\n"))
+            print("\nSubject deleted.")
+
         elif action == "4":
             reset_report(report)
 

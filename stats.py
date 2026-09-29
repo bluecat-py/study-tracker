@@ -8,7 +8,7 @@ def format_time(total_minute: int):
         else:
             hour_digits.append(num) #or I can just use //
     hour = str(".".join(hour_digits)) + "h"
-    minute = str(total_minute % 60) +"m"
+    minute = format(total_minute % 60, ".2f") +"m"
     if hour == "0h":       #so that it doesn't show the hour if it's just 0
         return minute
     else:
@@ -107,7 +107,7 @@ def show_study_log(report):
         print("==================================================")
         print(f"Sessions: {calculate_subject_report(report)[i]["total sessions"]}")
         print(f"Total Time Spent: {format_time(calculate_subject_report(report)[i]["total time spent"])}")
-        print(f"Average Session: {calculate_subject_report(report)[i]["average session"]}")
+        print(f"Average Time Spent Per Session: {format_time(calculate_subject_report(report)[i]["average session"])}")
         for minute in range(0, len(report[i]["minutes"])):
             print(f"Session {minute+1}: {format_time(report[i]["minutes"][minute])}")
         print("==================================================\n")
@@ -116,8 +116,13 @@ def show_study_log(report):
 
 
 #removing
-def delete(subject):
-    while True:
-        if subject in report:
-            HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+def delete(report: dict, subject: str):
+    for i in range(0, len(report)):
+        if subject == report[i]["subject"]:
+            del report[i]
+        else:
+            continue
+
+        
+        
 
