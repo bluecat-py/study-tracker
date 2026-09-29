@@ -21,8 +21,7 @@ def main():
                     if sub_input > len(report) or sub_input == 0: #if the input is invalid
                         print("No subject matches that number. Enter a valid subject number or type a new subject name to create it.")
                         continue #the code below won't run if the expression is True
-                    minute = int(input("Enter study time (minutes): "))
-                    report[sub_input-1]["minutes"].append(minute)
+                    report[sub_input-1]["minutes"].append(input_minute())
                     print("\nYour study has been recorded...")
                     print("=====================================")
                 elif not isNumber(sub_input): #scenario 2: user entered alphabet
@@ -30,13 +29,11 @@ def main():
                     for i in range(0, len(report)):
                         if sub_input == report[i]["subject"]: #if the input match with the value in "subject" on i index
                             found = True
-                            minute = int(input("Enter study time (minutes): "))
-                            report[i]["minutes"].append(minute)
+                            report[i]["minutes"].append(input_minute())
                             break
                     if found == False: #if no match is found
                         print(f"Subject {sub_input} has been created")
-                        minute = int(input("Enter study time (minutes): "))
-                        report.append(create_subject(sub_input, minute))
+                        report.append(create_subject(sub_input, input_minute()))
                         print("\nYour study has been recorded...")
                         print("=====================================")
 
@@ -49,7 +46,7 @@ def main():
 
         elif action == "3":
             delete(report, input("What subject would you like to delete?\n"))
-            print("\nSubject deleted.")
+            print("\nSubject deleted.\n")
 
         elif action == "4":
             reset_report(report)
@@ -65,8 +62,6 @@ def main():
 main()
 
 #TODO: handle invalid input in variable minute, when the user want to make the second entry but they inputted an invalid value
-#TODO: simplify average session from this Average Session:  36.333333333333336 to Average Session:  36.33
 #TODO: handle an error for when user input only digits(no alphabet) in subject input
 #TODO: handle an empty input
-#TODO: add remove subject
 #TODO: a user cannot just input "1" for their subject name, because that would be confusing

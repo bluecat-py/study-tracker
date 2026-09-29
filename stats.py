@@ -1,19 +1,14 @@
 #inputting
-def format_time(total_minute: int): 
-    hour_digits = []
-    hours_as_strings = str(total_minute / 60) #so I can iterate it
-    for num in hours_as_strings:
-        if num == ".":
-            break #to stop when it found a dot
-        else:
-            hour_digits.append(num) #or I can just use //
-    hour = str(".".join(hour_digits)) + "h"
-    minute = format(total_minute % 60, ".2f") +"m"
-    if hour == "0h":       #so that it doesn't show the hour if it's just 0
-        return minute
-    else:
-        return hour + " " + minute
-        
+def format_time(total_minute: int):
+    hours, minutes = divmod(total_minute, 60)
+    hours = format(hours, ".0f")
+    minutes = format(minutes,".0f")
+    if hours == "0":
+        return f"{minutes}m"
+    elif minutes == "0":
+        return f"{hours}h"
+    return f"{hours}h {minutes}m"
+
 def create_subject(subject: str, minutes: list[int]):
     if minutes == 0:
         minutes = []
@@ -36,7 +31,11 @@ def isNumber(value: str) -> bool:
 def input_minute():
     while True:
         try:
-            minute = int(input("Enter study time (minutes): "))
+            minute = input("Enter study time (minutes): ")
+            if minute == "":
+                print("Make sure that your input is not empty\n")
+                continue
+            minute = int(minute)
             break
         except ValueError:
             print("Please enter minutes in digit numbers.\n")
