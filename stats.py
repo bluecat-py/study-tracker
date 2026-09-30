@@ -16,7 +16,7 @@ def create_subject(subject: str, minutes: list[int]):
               "minutes" : [minutes]}
     return report
 
-def isNumber(value: str) -> bool:
+def isOnlyNumber(value: str) -> bool:
     number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
     notNumber = 0
     for char in value:
@@ -47,6 +47,15 @@ def has_no_subject(report):
     else:
         return False
 
+def handle_empty_subject2(report):
+    while True:
+        sub_input = input("\nIt seems that you haven't added any subject, go ahead and add one.\nSubject: ")
+        if isOnlyNumber(sub_input):
+            print("\nA subject name must not only contains digits, it must also contain at least one letter.\n")
+            HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+            pass
+        
+
 def handle_empty_subject(report):
     while True:
         sub_input = input("\nIt seems that you haven't added any subject, go ahead and add one.\nSubject: ")
@@ -58,6 +67,18 @@ def handle_empty_subject(report):
     report.append(create_subject(sub_input, minute))
     print("\nYour study has been recorded...")
     print("=====================================")
+
+
+def handle_subject_input(report):
+    while True:
+        try:
+            sub_input = input("\nChoose which subject to record or create a new one\n")
+        except ValueError:
+            print("Make sure that your input is not empty\n")
+    HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+    pass
+
+            
 
 
 
@@ -93,6 +114,11 @@ def calculate_subject_report(report):
     return study_log_report
 
 #presentation
+def show_subjects(report: dict):
+    for i in range(0, len(report)):
+        print(f"{i+1}. {report[i]["subject"]}")
+
+
 
 def show_study_report(report):
     print("================== STUDY REPORT ==================\n")
@@ -124,4 +150,3 @@ def delete(report: dict, subject: str):
 
         
         
-

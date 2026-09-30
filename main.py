@@ -13,18 +13,17 @@ def main():
             if has_no_subject(report):
                 handle_empty_subject(report)
             else: #if the subject already exist
-                for i in range(0, len(report)):
-                    print(f"{i+1}. {report[i]["subject"]}")
+                show_subjects(report)
                 sub_input = input("\nChoose which subject to record or create a new one\n")
-                if isNumber(sub_input): #scenario 1: user entered number
+                if isOnlyNumber(sub_input): #scenario 1: user entered number
                     sub_input = int(sub_input) #convert it into integer for comparing
-                    if sub_input > len(report) or sub_input == 0: #if the input is invalid
+                    if sub_input > len(report) or sub_input == 0 : #if the input is invalid
                         print("No subject matches that number. Enter a valid subject number or type a new subject name to create it.")
                         continue #the code below won't run if the expression is True
                     report[sub_input-1]["minutes"].append(input_minute())
                     print("\nYour study has been recorded...")
                     print("=====================================")
-                elif not isNumber(sub_input): #scenario 2: user entered alphabet
+                elif not isOnlyNumber(sub_input): #scenario 2: user entered alphabet
                     found = False
                     for i in range(0, len(report)):
                         if sub_input == report[i]["subject"]: #if the input match with the value in "subject" on i index
@@ -61,7 +60,7 @@ def main():
 
 main()
 
-#TODO: handle invalid input in variable minute, when the user want to make the second entry but they inputted an invalid value
 #TODO: handle an error for when user input only digits(no alphabet) in subject input
-#TODO: handle an empty input
+#TODO: handle an empty input in "Choose a subject or input a new one" section
 #TODO: a user cannot just input "1" for their subject name, because that would be confusing
+#TODO: a glitch occur when "You haven't input anything, try again" and you input a valid subject name.
