@@ -17,6 +17,8 @@ def create_subject(subject: str, minutes: list[int]):
     return report
 
 def isOnlyNumber(value: str) -> bool:
+    if value == "":
+        return False
     number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
     notNumber = 0
     for char in value:
@@ -48,12 +50,18 @@ def has_no_subject(report):
         return False
 
 def handle_empty_subject2(report):
+    sub_input = input("\nIt seems that you haven't added any subject, go ahead and add one.\nSubject: ")
     while True:
-        sub_input = input("\nIt seems that you haven't added any subject, go ahead and add one.\nSubject: ")
         if isOnlyNumber(sub_input):
-            print("\nA subject name must not only contains digits, it must also contain at least one letter.\n")
-            HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-            pass
+            sub_input = input("\nA subject name must not only contains digits, it must also contain at least one letter. Try again.\nSubject: ")
+        elif sub_input == "":
+            sub_input = input("You haven't input anything, try again.\nSubject: ")
+        else:
+            minute = input_minute()
+            break
+    report.append(create_subject(sub_input, minute))
+    print("\nYour study has been recorded...")
+    print("=====================================")
         
 
 def handle_empty_subject(report):

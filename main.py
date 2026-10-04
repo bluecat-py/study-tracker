@@ -11,7 +11,7 @@ def main():
         #responses to the input
         if action == "1": 
             if has_no_subject(report):
-                handle_empty_subject(report)
+                handle_empty_subject2(report)
             else: #if the subject already exist
                 show_subjects(report)
                 sub_input = input("\nChoose which subject to record or create a new one\n")
@@ -58,9 +58,11 @@ def main():
         else:
             print("\nError: Choose the availabe action (1-5)\n")
 
+
 main()
 
 #TODO: handle an error for when user input only digits(no alphabet) in subject input
 #TODO: handle an empty input in "Choose a subject or input a new one" section
 #TODO: a user cannot just input "1" for their subject name, because that would be confusing
 #TODO: a glitch occur when "You haven't input anything, try again" and you input a valid subject name.
+#TODO: only spaces input (  ) should not be permitted. I think strip() can handle this.
