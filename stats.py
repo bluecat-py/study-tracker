@@ -33,7 +33,7 @@ def isOnlyNumber(value: str) -> bool:
 def input_minute():
     while True:
         try:
-            minute = input("Enter study time (minutes): ")
+            minute = input("Enter study time (minutes): ")   #HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
             if minute == "":
                 print("Make sure that your input is not empty\n")
                 continue
@@ -49,7 +49,7 @@ def has_no_subject(report):
     else:
         return False
 
-def handle_empty_subject2(report):
+def handle_empty_subject(report):
     sub_input = input("\nIt seems that you haven't added any subject, go ahead and add one.\nSubject: ")
     while True:
         if isOnlyNumber(sub_input):
@@ -62,27 +62,33 @@ def handle_empty_subject2(report):
     report.append(create_subject(sub_input, minute))
     print("\nYour study has been recorded...")
     print("=====================================")
-        
 
-def handle_empty_subject(report):
+
+def handle_subject_input(report, sub_input):
     while True:
-        sub_input = input("\nIt seems that you haven't added any subject, go ahead and add one.\nSubject: ")
-        if sub_input == "": #suppose user typed nothing
-            sub_input = input("You haven't input anything, try again.\nSubject: ")
+        if sub_input == "":
+            sub_input = input("A subject name cannot be empty. Try again.\nSubject: ")
+        elif isOnlyNumber(sub_input):
+            sub_input = int(sub_input)
+            if sub_input > len(report) or sub_input == 0:
+                sub_input = input("No subject matches that number. Enter a valid subject number or type a new subject name to create it.\nSubject: ")
+                continue
+            report[sub_input-1]["minutes"].append(input_minute())
+            print("\nYour study has been recorded...")
+            print("=====================================")
         else:
-            minute = input_minute()
-            break
-    report.append(create_subject(sub_input, minute))
-    print("\nYour study has been recorded...")
-    print("=====================================")
+            found = False
+            for i in range(0, len(report)):
+                if sub_input == report[i]["subject"]:
+                    found = True
+                    report[i]["minutes"].append(input_minute()) #HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+                    break
+            if not found:
+                print(f"Subject {sub_input} has been created")
+                report.append(create_subject(sub_input, input_minute()))
+                print("\nYour study has been recorded...")
+                print("=====================================")
 
-
-def handle_subject_input(report):
-    while True:
-        try:
-            sub_input = input("\nChoose which subject to record or create a new one\n")
-        except ValueError:
-            print("Make sure that your input is not empty\n")
     HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
     pass
 

@@ -11,7 +11,7 @@ def main():
         #responses to the input
         if action == "1": 
             if has_no_subject(report):
-                handle_empty_subject2(report)
+                handle_empty_subject(report)
             else: #if the subject already exist
                 show_subjects(report)
                 sub_input = input("\nChoose which subject to record or create a new one\n")
@@ -30,7 +30,7 @@ def main():
                             found = True
                             report[i]["minutes"].append(input_minute())
                             break
-                    if found == False: #if no match is found
+                    if not found: #if no match is found
                         print(f"Subject {sub_input} has been created")
                         report.append(create_subject(sub_input, input_minute()))
                         print("\nYour study has been recorded...")
@@ -56,7 +56,7 @@ def main():
             break
 
         else:
-            print("\nError: Choose the availabe action (1-5)\n")
+            print("\nError: Action is not available")
 
 
 main()
